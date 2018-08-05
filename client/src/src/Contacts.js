@@ -5,18 +5,11 @@ import { Query } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
 
-const ContactsList = ({ data: { loading, error, contacts } }) => {
-
-   console.log('data in contact', loading, loading, contacts);
+const ContactsList = (props) => {
+   console.log('data in ContactsList', props);
    return (
       <div className="row">
-         <ul className="collection">
-            {contacts.map(item =>
-               (<li className="collection-item" key={item.id}><Link to={item.id < 0 ? `/` : `contact/${item.id}`}>
-                  {item.firstName} {item.lastName}
-               </Link></li>)
-            )}
-         </ul>
+         contact Contactlist
       </div>
    );
 }
@@ -33,18 +26,22 @@ const ContactsList = ({ data: { loading, error, contacts } }) => {
 
 
 
-
-const Contacts = () => (
+const Contacts = (props) => (
    <Query query={CONTACTS_QUERY}>
       {({ loading, error, data }) => {
-          if (loading) return 'Loading...';
-          if (error) return `Error! ${error.message}`;
-         console.log(data);
-         return <div>hello</div>
-      }}
+         console.log(loading, error)
+      if (error) return <div />
+      if (loading || !data) return <div />
+
+      console.log(data)
+
+      return <ContactsList data={data} {...props}/>
+    }}
    </Query>
 );
 
 export default Contacts;
+
+
 
 // export default graphql(contactsListQuery)(Contacts);
