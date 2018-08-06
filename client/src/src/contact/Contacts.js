@@ -9,7 +9,7 @@ const ContactsList = (props) => {
    console.log('data in ContactsList', props);
    return (
       <div className="row">
-         contact Contactlist
+          Contactlist
       </div>
    );
 }

@@ -3,13 +3,13 @@ import { ApolloProvider, createNetworkInterface, toIdValue } from 'react-apollo'
 import ApolloClient from 'apollo-boost';
 import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
-import Contacts from './Contacts';
+import Contacts from './contact/Contacts';
 // import AddContact from './AddContact';
 // // import ContactSingle from './ContactSingle';
 // // import Songs from './songs';
 
 const PORT = 3001;
-const uri= `http://localhost:${4000}/graphql`;
+const uri= `http://localhost:${PORT}/graphql`;
 
 // const networkInterface = createNetworkInterface({
 //    uri
