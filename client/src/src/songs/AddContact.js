@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { gql, graphql } from 'react-apollo';
 
-import { contactsListQuery } from './Contacts';
+import { contactsListQuery } from './songs';
 
 class AddContact extends Component {
   state = {
