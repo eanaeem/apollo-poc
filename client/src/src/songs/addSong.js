@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import { Form, TextField, Button, FormLayout } from '@shopify/polaris';
 
-
+import { SONGS_QUERY } from '../query/songs';
 class SongForm extends Component {
    state = {
       title: '',
@@ -16,10 +16,18 @@ class SongForm extends Component {
       this.setState({ [field]: value });
    }
    handleSubmit = () => {
-      console.log(this.props);
+      // console.log(this.props);
       const { title, url } = this.state;
       console.log(title, url);
-      this.props.addSong({ variables: { title, url } })
+      const variables = { title, url };
+      const update = (store, { data:{newSong} }) => {
+         console.log(store);
+         const data = store.readQuery({ query: SONGS_QUERY });
+         console.log(data);
+         data.songs.push(newSong);
+         store.writeQuery({ query: SONGS_QUERY, data});
+      };
+      this.props.addSong({ variables, update })
          .then(res => console.log('res', res))
          .catch(err => console.log('err', err));
    }
@@ -50,7 +58,7 @@ class SongForm extends Component {
 
    render() {
       return (
-         <div>
+         <div style={{ paddingTop: '2.5rem'}}>
             {this.renderForm()}
          </div>
       )
@@ -71,8 +79,7 @@ const ADD_SONG = gql`
 const AddSong = (props) => (
    <Mutation mutation={ADD_SONG}>
       {(addSong, { data }) => {
-         console.log('props in mutatin', props);
-         console.log(data, addSong)
+         // console.log('props in mutatin', props);
          return <SongForm addSong={addSong} data={data} />
 
       }}

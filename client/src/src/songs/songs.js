@@ -7,8 +7,7 @@ import { Query } from 'react-apollo';
 import { Heading, FormLayout, Card, List } from '@shopify/polaris';
 
 import SongForm from './addSong';
-
-
+import { SONGS_QUERY } from '../query/songs';
 
 // const Songslist = (props) => {
 class Songslist extends Component {
@@ -25,11 +24,11 @@ class Songslist extends Component {
    }
 
    render() {
-      console.log('data in songs', this.props);
+      // console.log('data in songs', this.props);
       const { songs } = this.props.data;
       return (
          <Card sectioned>
-            <div style={{ paddingTop: '14rem', minHeight: '40rem' }}>
+            <div style={{ paddingTop: '14rem ', minHeight: '10rem'}}>
                {songs && songs.length > 0 && this.renderSongs()}
                <SongForm />
             </div>
@@ -38,20 +37,12 @@ class Songslist extends Component {
    }
 }
 
-const SONGS_QUERY = gql`
-  query SongsQuery {
-   songs:allSongs {
-      id
-      title
-      rating
-      favorite
-   }
-}`;
-
-
 const Songs = (props) => (
-   <Query query={SONGS_QUERY}>
-      {({ loading, error, data }) => {
+   <Query 
+      query={SONGS_QUERY}
+      // pollInterval={500}
+   >
+      {({ loading, error, data, startPolling, stopPolling }) => {
          console.log(loading, error)
          if (error) return <div />
          if (loading || !data) return <div />

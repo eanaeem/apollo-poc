@@ -1,10 +1,9 @@
-import { gql } from 'react-apollo';
+import gql from 'graphql-tag';
 
-export const songsQuery = gql`
+export const SONGS_QUERY = gql`
   query SongsQuery {
-   allSongs {
+   songs:allSongs {
       id
       title
-      artist
    }
-  }`;
+}`;
