@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-// import { graphql } from 'graphql';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import { Heading, FormLayout, Card, List } from '@shopify/polaris';
 
 import SongForm from './addSong';
-import { SONGS_QUERY } from '../query/songs';
+import { GET_SONG } from '../query/songs';
 
-// const Songslist = (props) => {
-class Songslist extends Component {
-
-   renderSongs() {
+class Songlist extends Component {
+   renderSong() {
       const { songs } = this.props.data;
       console.log(songs);
       return <List type="bullet">
@@ -24,33 +21,33 @@ class Songslist extends Component {
    }
 
    render() {
-      // console.log('data in songs', this.props);
-      const { songs } = this.props.data;
+      console.log('data in song:', this.props);
+      const { title, rating, artist } = this.props.data.song;
       return (
          <Card sectioned>
-               {songs && songs.length > 0 && this.renderSongs()}
-               <SongForm />
+                  <div>
+                     <p>{title}</p>
+                     <p>{rating}</p>
+                     <p>{artist}</p>
+                  </div>
          </Card>
       )
    }
 }
 
-const Songs = (props) => (
+const Song = (props) => (
    <Query
-      query={SONGS_QUERY}
-   // pollInterval={500}
+      query={GET_SONG}
+      variables={{ id: props.match.params.id }}
    >
       {({ loading, error, data, startPolling, stopPolling }) => {
-         console.log(loading, error)
+         // console.log(loading, error, props)
          if (error) return <div />
          if (loading || !data) return <div />
-         return <Songslist data={data} {...props} />
+         return <Songlist data={data} {...props} />
       }}
    </Query>
 );
 
-export default Songs;
+export default Song;
 
-
-
-// export default graphql(SongslistQuery)(Songs);

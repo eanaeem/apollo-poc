@@ -4,7 +4,7 @@ import ApolloClient from 'apollo-boost';
 import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 
-import Songs from './songs/songs';
+import {Song, Songs} from './songs';
 
 import { AppProvider, Page } from '@shopify/polaris';
 import Header from './components/header';
@@ -67,9 +67,9 @@ class App extends Component {
                   <BrowserRouter>
                      <Page>
                         <Header />
-                        {/* <AddContact /> */}
                         <Switch>
                            <Route exact path="/" component={Songs} />
+                           <Route exact path="/song/:id" component={Song} />
                            {/* <Route exact path="/songs" component={Songs}/> */}
                            {/* <Route path="/contact/:contactId" component={ContactSingle}/> */}
                         </Switch>

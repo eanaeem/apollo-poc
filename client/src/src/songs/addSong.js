@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import {  withRouter } from 'react-router-dom';
 
-import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import { Form, TextField, Button, FormLayout } from '@shopify/polaris';
 
 import { SONGS_QUERY } from '../query/songs';
+import { ADD_SONG } from '../mutation/songs';
 class SongForm extends Component {
    state = {
       title: '',
@@ -18,7 +18,6 @@ class SongForm extends Component {
    handleSubmit = () => {
       // console.log(this.props);
       const { title, url } = this.state;
-      console.log(title, url);
       const variables = { title, url };
       const update = (store, { data:{newSong} }) => {
          console.log(store);
@@ -64,17 +63,6 @@ class SongForm extends Component {
       )
    }
 }
-
-
-const ADD_SONG = gql`
-   mutation createSong($title: String, $url: String!) {
-      newSong(title: $title, url: $url) {
-         id
-         title
-      }
-   }
-`;
-
 
 const AddSong = (props) => (
    <Mutation mutation={ADD_SONG}>
