@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { ApolloProvider, createNetworkInterface, toIdValue } from 'react-apollo';
+import {HttpLink} from "apollo-link-http";
 import ApolloClient from 'apollo-boost';
-import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+// import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 
 import {Song, Songs} from './songs';
@@ -9,30 +11,33 @@ import {Song, Songs} from './songs';
 import { AppProvider, Page } from '@shopify/polaris';
 import Header from './components/header';
 
-// import AddContact from './AddContact';
-// // import ContactSingle from './ContactSingle';
-// // import Songs from './songs';
-
-
 const PORT = 3001;
 const uri = `http://localhost:${PORT}/graphql`;
+
+const  link= new HttpLink({ uri });
+
+const cache = new InMemoryCache({
+   dataIdFromObject: o => o.id
+});
+
+
 
 // const networkInterface = createNetworkInterface({
 //    uri
 // });
 
-const dataIdFromObject = (result) => {
-   if (result.__typename) {
-     if (result.id !== undefined) {
-       return `${result.__typename}:${result.id}`
-     }
-   }
-   return null;
- }
+// const dataIdFromObject = (result) => {
+//    if (result.__typename) {
+//      if (result.id !== undefined) {
+//        return `${result.__typename}:${result.id}`
+//      }
+//    }
+//    return null;
+//  }
 
 const client = new ApolloClient({
    uri,
-   dataIdFromObject,
+   cache,
 });
 
 // const wsClient = new SubscriptionClient(`ws://localhost:${4000}/subscriptions`, {

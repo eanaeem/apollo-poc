@@ -8,3 +8,13 @@ export const ADD_SONG = gql`
       }
    }
 `;
+
+
+export const DELETE_SONG = gql`
+   mutation removeSong( $id:ID!) {
+   deleteSong( id:$id) {
+      id
+      title
+   }
+}
+`;

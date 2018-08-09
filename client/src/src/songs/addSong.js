@@ -27,7 +27,7 @@ class SongForm extends Component {
          store.writeQuery({ query: SONGS_QUERY, data});
       };
       this.props.addSong({ variables, update })
-         .then(res => console.log('res', res))
+         .then(res => this.setState({title:'', url:''}))
          .catch(err => console.log('err', err));
    }
 

@@ -12,10 +12,9 @@ export const SONGS_QUERY = gql`
 export const GET_SONG = gql`
    query getSong( $id:ID!) {
   song:Song( id:$id) {
+     id
     title
-    url
-    rating
-    artist
+    
   }
 }
 `;

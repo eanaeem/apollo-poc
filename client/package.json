@@ -5,7 +5,9 @@
   "dependencies": {
     "@shopify/polaris": "^2.5.0",
     "apollo-boost": "^0.1.12",
+    "apollo-cache-inmemory": "^1.2.7",
     "apollo-client": "^2.3.7",
+    "apollo-link-http": "^1.5.4",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
     "graphql-tools": "^1.1.0",
